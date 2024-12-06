@@ -98,7 +98,7 @@ class Game {
         gameActions.startGame(gameMode);
     }
 }
-public class Game {
+public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         Scanner scanner = new Scanner(System.in);
