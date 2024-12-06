@@ -1,0 +1,111 @@
+import java.util.Scanner;
+
+interface IUserInformation {
+    String getUserName();
+    String chooseGameMode();
+}
+
+interface IGameActions {
+    void startGame(String gameMode);
+}
+
+interface IGameDisplay {
+    void displayWelcomeMessage(String userName);
+}
+
+class UserInformation implements IUserInformation {
+    private Scanner scanner = new Scanner(System.in);
+
+    @Override
+    public String getUserName() {
+        System.out.print("Enter your name: ");
+        return scanner.nextLine();
+    }
+
+    @Override
+    public String chooseGameMode() {
+        System.out.println("\n_________________________________________");
+        System.out.println("\n Press 1 or 2 to select your game mode:");
+        System.out.println("1. Story Mode");
+        System.out.println("2. Survival Mode");
+        System.out.println("-----------------------------------------");
+        String choice = scanner.nextLine();
+        return choice.equals("1") ? "Story" : "Survival";
+        
+
+    }
+}
+
+class GameActions implements IGameActions {
+    @Override
+    public void startGame(String gameMode) {
+        System.out.println("\nStarting " + gameMode + "...");
+    }
+}
+
+class GameDisplay implements IGameDisplay {
+    @Override
+    public void displayWelcomeMessage(String userName) {
+        System.out.println("");
+    }
+}
+
+class Game {
+    private IUserInformation userInfo;
+    private IGameActions gameActions;
+    private IGameDisplay gameDisplay;
+
+    public Game() {
+        userInfo = new UserInformation();
+        gameActions = new GameActions();
+        gameDisplay = new GameDisplay();
+    }
+
+    public void play() {
+        
+        String userName = userInfo.getUserName();
+        String gameMode = userInfo.chooseGameMode();
+        
+        
+        
+        Scanner scanner = new Scanner(System.in);
+         System.out.println("_________________________________________");
+        System.out.println("\n Press P to play, " + userName + "...");
+        System.out.println("-----------------------------------------");
+        
+        
+        while (true) {
+            String input = scanner.nextLine().toUpperCase(); 
+            if (input.equals("P")) {
+               
+                System.out.println("___________________________________________________________");
+                System.out.println("\n    Greetings!, " + userName + "! Let's start your adventure.");
+                System.out.println("___________________________________________________________");
+                break;  
+            } else {
+                System.out.println("Invalid input. Please press P to play, " + userName + "...");
+            }
+        }
+        
+        if (gameMode.equals("Survival")) {
+            System.out.println("\nBe ready, " + userName + "! Make sure to survive!");
+        } else if (gameMode.equals("Story")) {
+            System.out.println("\nWe tell Stories in order to live... ");
+        }
+
+        gameDisplay.displayWelcomeMessage(userName);
+
+        gameActions.startGame(gameMode);
+    }
+}
+public class Game {
+    public static void main(String[] args) {
+        Game game = new Game();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Press Enter to Start your Adventure in the Game...");
+        scanner.nextLine();  
+
+        game.play(); 
+    }
+}
